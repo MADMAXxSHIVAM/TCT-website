@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="description" content="TCT — The Changing Things. A home for bold ideas, useful technology, and projects built to make a difference.">
+  <title>TCT — The Changing Things</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0d0c;
+      --panel: #121614;
+      --panel-2: #171c19;
+      --text: #f4f5f0;
+      --muted: #a3aaa3;
+      --line: rgba(239, 245, 235, .12);
+      --acid: #c6f36a;
+      --acid-dark: #19250c;
+      --max: 1160px;
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--acid); font-size: .76rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; }
+    .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(255,255,255,.07); background: rgba(11,13,12,.82); backdrop-filter: blur(18px); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: .88rem; font-weight: 900; letter-spacing: .06em; }
+    .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--acid); color: #10140a; font-size: 1rem; letter-spacing: -.08em; box-shadow: 0 0 30px rgba(198,243,106,.11); }
+    .brand small { display: block; color: var(--muted); font-size: .65rem; font-weight: 600; letter-spacing: .08em; margin-top: -2px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #c4c9c2; font-size: .9rem; }
+    .nav-links a:not(.nav-cta):hover { color: var(--acid); }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; padding: 12px 18px; background: var(--acid); color: #11150b; font-weight: 800; font-size: .88rem; transition: transform .2s ease, background .2s ease; }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); background: #d7ff8d; }
+    .menu-toggle { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 12px; width: 44px; height: 44px; cursor: pointer; }
+    .hero { position: relative; overflow: hidden; padding: 100px 0 74px; }
+    .hero::before { content: ""; pointer-events: none; position: absolute; width: 520px; height: 520px; right: -140px; top: -120px; background: radial-gradient(circle, rgba(198,243,106,.12), transparent 68%); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); gap: 56px; align-items: center; position: relative; }
+    h1 { max-width: 760px; font-size: clamp(3.3rem, 7.4vw, 6.8rem); line-height: .98; letter-spacing: -.075em; margin: 24px 0; font-weight: 850; }
+    h1 span { color: var(--acid); }
+    .hero-copy { max-width: 570px; color: var(--muted); font-size: clamp(1rem, 1.45vw, 1.17rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+    .button.secondary { border: 1px solid var(--line); background: transparent; color: var(--text); }
+    .button.secondary:hover { background: var(--panel-2); }
+    .arrow { font-size: 1.1rem; line-height: 1; }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 38px; color: #9da59d; font-size: .83rem; }
+    .pulse { width: 8px; height: 8px; background: var(--acid); border-radius: 50%; box-shadow: 0 0 0 5px rgba(198,243,106,.09); }
+    .hero-art { position: relative; min-height: 420px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: min(100%, 420px); aspect-ratio: 1; border: 1px solid rgba(198,243,106,.21); border-radius: 50%; transform: rotate(-24deg); }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid rgba(198,243,106,.13); border-radius: 50%; inset: 35px; }
+    .orbit::after { inset: 82px; }
+    .core { position: relative; display: grid; place-items: center; width: 190px; height: 190px; border-radius: 42px; background: linear-gradient(145deg, #d7ff8d, #9fcf45); color: #12170a; box-shadow: 0 20px 90px rgba(198,243,106,.14); transform: rotate(-7deg); }
+    .core strong { font-size: 3.8rem; letter-spacing: -.1em; line-height: 1; transform: rotate(7deg); }
+    .core small { position: absolute; bottom: 26px; font-size: .57rem; font-weight: 900; letter-spacing: .2em; transform: rotate(7deg); }
+    .orbit-label { position: absolute; display: flex; align-items: center; gap: 9px; border: 1px solid var(--line); border-radius: 999px; background: rgba(18,22,20,.88); padding: 10px 14px; color: #e8ede5; font-size: .78rem; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .orbit-label b { color: var(--acid); font-size: .9rem; }
+    .label-one { top: 58px; right: 0; }
+    .label-two { bottom: 60px; left: -2px; }
+    .label-three { bottom: 96px; right: -5px; }
+    .ticker { border-block: 1px solid var(--line); padding: 17px 0; overflow: hidden; }
+    .ticker-inner { display: flex; justify-content: space-between; gap: 22px; color: #838c83; font-size: .73rem; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; white-space: nowrap; }
+    .ticker span { display: inline-flex; align-items: center; gap: 22px; }
+    .ticker span::after { content: "✳"; color: var(--acid); font-size: .95rem; }
+    section { padding: 100px 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 38px; }
+    h2 { font-size: clamp(2.25rem, 4.5vw, 4rem); letter-spacing: -.06em; line-height: 1.05; margin: 15px 0 0; font-weight: 820; }
+    .section-intro { color: var(--muted); max-width: 410px; margin: 0 0 3px; }
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .focus-card { position: relative; min-height: 290px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, #151a17, #101311); padding: 28px; overflow: hidden; transition: transform .25s ease, border-color .25s ease; }
+    .focus-card:hover { transform: translateY(-5px); border-color: rgba(198,243,106,.4); }
+    .card-number { color: #7e897d; font-size: .77rem; font-weight: 800; letter-spacing: .12em; }
+    .card-icon { width: 48px; height: 48px; margin: 22px 0 20px; display: grid; place-items: center; border: 1px solid rgba(198,243,106,.23); border-radius: 15px; color: var(--acid); background: rgba(198,243,106,.06); font-size: 1.25rem; }
+    h3 { margin: 0 0 11px; font-size: 1.28rem; letter-spacing: -.035em; }
+    .focus-card p { margin: 0; color: var(--muted); font-size: .93rem; max-width: 320px; }
+    .card-glow { position: absolute; width: 140px; height: 140px; border-radius: 50%; right: -70px; bottom: -80px; background: rgba(198,243,106,.09); filter: blur(25px); }
+    .manifesto { background: #c6f36a; color: #12170a; }
+    .manifesto .eyebrow { color: #33431b; }
+    .manifesto .eyebrow::before { background: currentColor; }
+    .manifesto-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+    .manifesto h2 { max-width: 490px; }
+    .manifesto-copy { font-size: clamp(1.15rem, 2vw, 1.55rem); line-height: 1.5; letter-spacing: -.025em; max-width: 680px; }
+    .manifesto-copy p { margin: 0 0 24px; }
+    .manifesto-copy .small { max-width: 570px; font-size: .98rem; line-height: 1.7; opacity: .78; }
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .work-card { min-height: 300px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; position: relative; }
+    .work-card:nth-child(2) { background: #141b12; }
+    .work-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+    .tag { display: inline-block; border-radius: 999px; border: 1px solid var(--line); padding: 6px 10px; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #b5beb4; }
+    .work-mark { color: var(--acid); font-size: 2.3rem; line-height: 1; }
+    .work-card h3 { font-size: 1.8rem; margin-bottom: 9px; }
+    .work-card p { color: var(--muted); margin: 0; max-width: 430px; }
+    .work-foot { margin-top: 25px; color: var(--acid); font-weight: 750; font-size: .81rem; display: flex; gap: 8px; align-items: center; }
+    .work-card .orb { position: absolute; width: 230px; height: 230px; border: 1px solid rgba(198,243,106,.12); border-radius: 50%; right: -105px; top: 62px; pointer-events: none; }
+    .work-card .orb::before { content: ""; position: absolute; inset: 28px; border: 1px solid rgba(198,243,106,.09); border-radius: 50%; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; border-top: 1px solid var(--line); padding-top: 28px; }
+    .step-index { color: var(--acid); font-size: .79rem; font-weight: 800; letter-spacing: .12em; }
+    .steps h3 { margin-top: 14px; }
+    .steps p { color: var(--muted); margin: 0; max-width: 310px; font-size: .93rem; }
+    .cta { padding-top: 25px; }
+    .cta-panel { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; padding: clamp(30px, 6vw, 65px); border: 1px solid rgba(198,243,106,.2); border-radius: 30px; background: radial-gradient(circle at 95% 0%, rgba(198,243,106,.1), transparent 36%), var(--panel); }
+    .cta-panel h2 { max-width: 730px; }
+    .cta-panel p { color: var(--muted); max-width: 540px; margin-bottom: 0; }
+    footer { padding: 32px 0 38px; border-top: 1px solid var(--line); margin-top: 90px; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .footer-note { color: #8b948a; font-size: .8rem; }
+    .footer-links { display: flex; gap: 22px; color: #b8c0b7; font-size: .82rem; }
+    .footer-links a:hover { color: var(--acid); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    :focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+    @media (max-width: 860px) {
+      .hero { padding-top: 75px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+      .hero-art { min-height: 350px; }
+      .orbit { width: 330px; }
+      .core { width: 150px; height: 150px; border-radius: 34px; }
+      .core strong { font-size: 3rem; }
+      .label-one { right: max(0px, calc(50% - 180px)); }
+      .label-two { left: max(0px, calc(50% - 185px)); }
+      .label-three { right: max(0px, calc(50% - 185px)); }
+      .focus-grid { grid-template-columns: 1fr; }
+      .focus-card { min-height: auto; }
+      .manifesto-grid { grid-template-columns: 1fr; gap: 24px; }
+      .section-heading { align-items: start; flex-direction: column; }
+      .cta-panel { grid-template-columns: 1fr; align-items: start; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(var(--max), calc(100% - 32px)); }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav-links { display: none; position: absolute; left: 16px; right: 16px; top: 76px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: #111512; align-items: stretch; flex-direction: column; gap: 17px; }
+      .nav-links.open { display: flex; }
+      .nav-cta { justify-content: center; }
+      h1 { font-size: clamp(3.05rem, 15vw, 5rem); }
+      section { padding: 72px 0; }
+      .ticker-inner { justify-content: flex-start; width: max-content; animation: ticker 22s linear infinite; }
+      .hero-art { min-height: 310px; margin-top: 5px; }
+      .orbit { width: 285px; }
+      .core { width: 130px; height: 130px; }
+      .core strong { font-size: 2.7rem; }
+      .core small { bottom: 18px; }
+      .orbit-label { font-size: .69rem; padding: 8px 10px; }
+      .label-one { top: 27px; right: 0; }
+      .label-two { bottom: 28px; left: 0; }
+      .label-three { bottom: 54px; right: 0; }
+      .work-grid, .steps { grid-template-columns: 1fr; }
+      .work-card { min-height: 260px; }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; }
+      footer { margin-top: 55px; }
+    }
+    @keyframes ticker { to { transform: translateX(-35%); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="TCT home">
+        <span class="brand-mark">TCT</span>
+        <span>THE CHANGING THINGS<small>IDEAS INTO IMPACT</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation">☰</button>
+      <nav class="nav-links" id="navigation" aria-label="Main navigation">
+        <a href="#focus">What we do</a>
+        <a href="#mission">Our mission</a>
+        <a href="#projects">Projects</a>
+        <a class="nav-cta" href="#contact">Build with us <span class="arrow">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <span class="eyebrow">A new kind of beginning</span>
+          <h1>Don't wait for the future.<br><span>Build it.</span></h1>
+          <p class="hero-copy">TCT — The Changing Things — is a home for ambitious ideas, useful technology, and creative projects made to move the world forward.</p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">Explore the vision <span class="arrow">↗</span></a>
+            <a class="button secondary" href="#mission">Why TCT exists</a>
+          </div>
+          <div class="hero-note"><span class="pulse"></span> Early-stage vision. Built one step at a time.</div>
+        </div>
+        <div class="hero-art reveal" aria-label="Abstract TCT brand illustration">
+          <div class="orbit"></div>
+          <div class="core"><strong>TCT</strong><small>CHANGE STARTS HERE</small></div>
+          <div class="orbit-label label-one"><b>✳</b> Think bigger</div>
+          <div class="orbit-label label-two"><b>↗</b> Make it real</div>
+          <div class="orbit-label label-three"><b>＋</b> Create impact</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="TCT principles">
+      <div class="wrap ticker-inner"><span>Curiosity first</span><span>Build with purpose</span><span>Technology for people</span><span>Progress over perfection</span><span>Curiosity first</span><span>Build with purpose</span></div>
+    </div>
+
+    <section id="focus">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">Where ideas go</span><h2>Three directions.<br>One purpose.</h2></div>
+          <p class="section-intro">The best ideas mean little until someone makes them useful. TCT is being shaped around turning curiosity into things people can actually use.</p>
+        </div>
+        <div class="focus-grid">
+          <article class="focus-card reveal"><span class="card-number">01 / DIGITAL</span><div class="card-icon">⌘</div><h3>Useful technology</h3><p>Explore software, AI tools, and digital products that make everyday tasks simpler and open new possibilities.</p><span class="card-glow"></span></article>
+          <article class="focus-card reveal"><span class="card-number">02 / CREATIVE</span><div class="card-icon">◈</div><h3>Stories that connect</h3><p>Use video, design, and clear storytelling to share ideas, make things understandable, and bring projects to life.</p><span class="card-glow"></span></article>
+          <article class="focus-card reveal"><span class="card-number">03 / IMPACT</span><div class="card-icon">↗</div><h3>Problems worth solving</h3><p>Look for practical ways to improve access, opportunity, and quality of life—starting small and learning honestly.</p><span class="card-glow"></span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto" id="mission">
+      <div class="wrap manifesto-grid">
+        <div class="reveal"><span class="eyebrow">The reason behind TCT</span><h2>Progress should mean something.</h2></div>
+        <div class="manifesto-copy reveal"><p>We believe ambition matters most when it becomes useful to someone beyond ourselves.</p><p class="small">TCT starts with a simple mindset: learn continuously, build honestly, test ideas in the real world, and improve what doesn't work. The long-term vision is to create technology and projects that help people—not just chase attention.</p></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">The first steps</span><h2>Ideas in the making.</h2></div>
+          <p class="section-intro">A good company is built through real projects. These are starting points for experimentation—not claims of launched products.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card reveal"><div class="orb"></div><div class="work-top"><span class="tag">Concept / AI</span><span class="work-mark">✳</span></div><div><h3>Personal AI tools</h3><p>Experimenting with ways for software to help people organise tasks, access information, and get work done.</p><div class="work-foot">RESEARCH & LEARNING <span>↗</span></div></div></article>
+          <article class="work-card reveal"><div class="orb"></div><div class="work-top"><span class="tag">Concept / Creative</span><span class="work-mark">◌</span></div><div><h3>Digital stories</h3><p>Using editing and visual storytelling to communicate ideas, document progress, and help projects find an audience.</p><div class="work-foot">EXPERIMENT & CREATE <span>↗</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach">
+      <div class="wrap">
+        <div class="section-heading reveal"><div><span class="eyebrow">How we move</span><h2>Small steps. Real progress.</h2></div><p class="section-intro">Big goals become achievable when you turn them into work you can finish, measure, and improve.</p></div>
+        <div class="steps">
+          <div class="reveal"><span class="step-index">STEP 01</span><h3>Learn the fundamentals</h3><p>Build strong foundations in technology, design, communication, and problem-solving.</p></div>
+          <div class="reveal"><span class="step-index">STEP 02</span><h3>Make and test</h3><p>Turn ideas into small projects, share them, listen to feedback, and keep improving.</p></div>
+          <div class="reveal"><span class="step-index">STEP 03</span><h3>Grow the impact</h3><p>Build on what works, collaborate with others, and focus effort where it can help most.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="wrap">
+        <div class="cta-panel reveal">
+          <div><span class="eyebrow">This is the beginning</span><h2>Have an idea that could make a difference?</h2><p>TCT is taking shape. The next step is to turn this vision into useful projects, one build at a time.</p></div>
+          <a class="button" href="#top">Back to the top <span class="arrow">↑</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <a class="brand" href="#top"><span class="brand-mark">TCT</span><span>THE CHANGING THINGS<small>IDEAS INTO IMPACT</small></span></a>
+      <div class="footer-note">© <span id="year"></span> TCT. Built with purpose.</div>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#focus">What we do</a><a href="#mission">Mission</a><a href="#projects">Projects</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+      menuButton.textContent = isOpen ? '✕' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open navigation');
+      menuButton.textContent = '☰';
+    }));
+    document.querySelector('#year').textContent = new Date().getFullYear();
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
